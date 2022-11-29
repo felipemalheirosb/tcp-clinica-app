@@ -1,0 +1,79 @@
+<h1 class="mt-4">Funcionarios</h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">Consulta</li>
+</ol>
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="alert alert-success" role="alert" *ngIf="mensagemSucesso">
+        {{ mensagemSucesso }}
+      </div>
+      <div class="alert alert-danger" role="alert"  *ngIf="mensagemError">
+        {{ mensagemError }}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <button class="btn btn-warning" (click)="novoCadastro()">
+        <i class="fa fa-plus"></i> Novo
+      </button>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-condensed table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Função</th>
+            <th>Data de Admissão</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let funcionario of funcionarios">
+            <td>{{funcionario.id}}</td>
+            <td>{{funcionario.funcao}}</td>
+            <td>{{funcionario.dataAdmissao}}</td>
+            <td>
+              <button class="btn btn-primary" routerLink="/funcionarios/form/{{ funcionario.id }}">
+                <i class="fa fa-edit"></i>
+              </button>
+
+              <button class="btn btn-danger" (click)="preparaDelecao(funcionario)" data-bs-toggle="modal"
+                data-bs-target="#modalDelecao">
+                <i class="fa fa-trash"></i>
+              </button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <div id="modalDelecao" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Confirmação</h4>
+        </div>
+
+        <div class="modal-body" *ngIf="funcionarioSelecionado">
+          Confirma a deleção do(a) funcionario <b>{{ funcionarioSelecionado.funcao }}</b>?
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-success" (click)="deletarFuncionario()" data-bs-dismiss="modal">Confirmar</button>
+          <button class="btn btn-default" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
